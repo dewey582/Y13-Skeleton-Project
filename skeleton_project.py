@@ -150,9 +150,11 @@ class Dastan:
         return ScoreAdjustment
 
     def __UpdatePlayerScore(self, PointsForPieceCapture):
+        ## updates the current player score
         self._CurrentPlayer.ChangeScore(self.__GetPointsForOccupancyByPlayer(self._CurrentPlayer) + PointsForPieceCapture)
 
     def __CalculatePieceCapturePoints(self, FinishSquareReference):
+        ## calculates the points needed for a chnage in peices being capped
         if self._Board[self.__GetIndexOfSquare(FinishSquareReference)].GetPieceInSquare() is not None:
             return self._Board[self.__GetIndexOfSquare(FinishSquareReference)].GetPieceInSquare().GetPointsIfCaptured()
         return 0
@@ -164,12 +166,12 @@ class Dastan:
             self.__DisplayState()
             SquareIsValid = False
             Choice = 0
-            
             while Choice < 1 or Choice > 3:
                 Choice = int(input("Choose move option to use from queue (1 to 3) or 9 to take the offer: "))
                 if Choice == 9:
                     self.__UseMoveOptionOffer()
                     self.__DisplayState()
+            ##checks if the position to move the peice to is part of the board 
             while not SquareIsValid:
                 StartSquareReference = self.__GetSquareReference("containing the piece to move")
                 SquareIsValid = self.__CheckSquareIsValid(StartSquareReference, True)
@@ -177,6 +179,7 @@ class Dastan:
             while not SquareIsValid:
                 FinishSquareReference = self.__GetSquareReference("to move to")
                 SquareIsValid = self.__CheckSquareIsValid(FinishSquareReference, False)
+            ## runs a function to check if the position the player chose is a legal move
             MoveLegal = self._CurrentPlayer.CheckPlayerMove(Choice, StartSquareReference, FinishSquareReference)
             if MoveLegal:
                 PointsForPieceCapture = self.__CalculatePieceCapturePoints(FinishSquareReference)
@@ -185,11 +188,14 @@ class Dastan:
                 self.__UpdateBoard(StartSquareReference, FinishSquareReference)
                 self.__UpdatePlayerScore(PointsForPieceCapture)
                 print("New score: " + str(self._CurrentPlayer.GetScore()) + "\n")
+            ##swaps which players turn it is
             if self._CurrentPlayer.SameAs(self._Players[0]):
                 self._CurrentPlayer = self._Players[1]
             else:
                 self._CurrentPlayer = self._Players[0]
+            ## checks for game over
             GameOver = self.__CheckIfGameOver()
+        ## prints board at end of turn
         self.__DisplayState()
         self.__DisplayFinalResult()
 
