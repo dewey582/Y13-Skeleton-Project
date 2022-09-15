@@ -205,14 +205,18 @@ class Dastan:
     def __DisplayFinalResult(self):
         if self._Players[0].GetScore() == self._Players[1].GetScore():
             print("Draw!")
+        ## if score is equel at the end draw
         elif self._Players[0].GetScore() > self._Players[1].GetScore():
             print(self._Players[0].GetName() + " is the winner!")
         else:
             print(self._Players[1].GetName() + " is the winner!")
+        ## if one score is bigger thatn the other bigger score wins
 
     def __CreateBoard(self):
+    ## creats the board withing the correct size
         for Row in range(1, self._NoOfRows + 1):
             for Column in range(1, self._NoOfColumns + 1):
+                ## plcaces the Kotla on the board at start of game
                 if Row == 1 and Column == self._NoOfColumns // 2:
                     S = Kotla(self._Players[0], "K")
                 elif Row == self._NoOfRows and Column == self._NoOfColumns // 2 + 1:
@@ -222,6 +226,8 @@ class Dastan:
                 self._Board.append(S)
 
     def __CreatePieces(self, NoOfPieces):
+        ##creates each sides peaices !for p1 " for p2
+        ##also places the peices on each side of the board
         for Count in range(1, NoOfPieces + 1):
             CurrentPiece = Piece("piece", self._Players[0], 1, "!")
             self._Board[self.__GetIndexOfSquare(2 * 10 + Count + 1)].SetPiece(CurrentPiece)
@@ -234,6 +240,7 @@ class Dastan:
         self._Board[self.__GetIndexOfSquare(self._NoOfRows * 10 + (self._NoOfColumns // 2 + 1))].SetPiece(CurrentPiece)
 
     def __CreateMoveOptionOffer(self):
+        ## five options for a new move to add to the queue
         self._MoveOptionOffer.append("jazair")
         self._MoveOptionOffer.append("chowkidar")
         self._MoveOptionOffer.append("cuirassier")
@@ -241,6 +248,7 @@ class Dastan:
         self._MoveOptionOffer.append("faujdar")
 
     def __CreateRyottMoveOption(self, Direction):
+        ## gives the movement options for the ryott
         NewMoveOption = MoveOption("ryott")
         NewMove = Move(0, 1 * Direction)
         NewMoveOption.AddToPossibleMoves(NewMove)
