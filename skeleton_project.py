@@ -261,6 +261,7 @@ class Dastan:
         return NewMoveOption
 
     def __CreateFaujdarMoveOption(self, Direction):
+        ## gives the movement options for the faujdar
         NewMoveOption = MoveOption("faujdar")
         NewMove = Move(0, -1 * Direction)
         NewMoveOption.AddToPossibleMoves(NewMove)
@@ -273,6 +274,7 @@ class Dastan:
         return NewMoveOption
 
     def __CreateJazairMoveOption(self, Direction):
+        ## gives the movement options for the jazair
         NewMoveOption = MoveOption("jazair")
         NewMove = Move(2 * Direction, 0)
         NewMoveOption.AddToPossibleMoves(NewMove)
@@ -291,6 +293,7 @@ class Dastan:
         return NewMoveOption
 
     def __CreateCuirassierMoveOption(self, Direction):
+        ## gives the movement options for the cuirassier
         NewMoveOption = MoveOption("cuirassier")
         NewMove = Move(1 * Direction, 0)
         NewMoveOption.AddToPossibleMoves(NewMove)
@@ -303,6 +306,7 @@ class Dastan:
         return NewMoveOption
 
     def __CreateChowkidarMoveOption(self, Direction):
+        ## gives the movement options for the ryott
         NewMoveOption = MoveOption("chowkidar")
         NewMove = Move(1 * Direction, 1 * Direction)
         NewMoveOption.AddToPossibleMoves(NewMove)
@@ -319,6 +323,7 @@ class Dastan:
         return NewMoveOption
 
     def __CreateMoveOption(self, Name, Direction):
+        ## fetches the movement option
         if Name == "chowkidar":
             return self.__CreateChowkidarMoveOption(Direction)
         elif Name == "ryott":
@@ -331,6 +336,7 @@ class Dastan:
             return self.__CreateCuirassierMoveOption(Direction)
 
     def __CreateMoveOptions(self):
+        ## cretes the movement option and orientantes it the correct way for each player
         self._Players[0].AddToMoveOptionQueue(self.__CreateMoveOption("ryott", 1))
         self._Players[0].AddToMoveOptionQueue(self.__CreateMoveOption("chowkidar", 1))
         self._Players[0].AddToMoveOptionQueue(self.__CreateMoveOption("cuirassier", 1))
@@ -350,15 +356,18 @@ class Piece: ## creates each peice
         self._Symbol = S
 
     def GetSymbol(self):
+        ## returnts the symbol var
         return self._Symbol
 
     def GetTypeOfPiece(self):
+        ## returns the peice type var
         return self._TypeOfPiece
 
     def GetBelongsTo(self):
         return self._BelongsTo
 
     def GetPointsIfCaptured(self):
+        ## return point valuye of capped piece
         return self._PointsIfCaptured
 
 class Square: ## creates each square as a objcet
@@ -378,7 +387,7 @@ class Square: ## creates each square as a objcet
     def GetPieceInSquare(self): ## if peice on square then get name of peice
         return self._PieceInSquare
 
-    def GetSymbol(self): ## get sybol in the square
+    def GetSymbol(self): ## get symbol in the square
         return self._Symbol
 
     def GetPointsForOccupancy(self, CurrentPlayer):
@@ -387,19 +396,22 @@ class Square: ## creates each square as a objcet
     def GetBelongsTo(self):
         return self._BelongsTo
 
-    def ContainsKotla(self): ## if a kotla is in the square then assign symbol to the square
+    def ContainsKotla(self): 
+        ## if a kotla is in the square then assign symbol to the square
         if self._Symbol == "K" or self._Symbol == "k":
             return True
         else:
             return False
 
 class Kotla(Square):
+    ##creates the object Kotla 
     def __init__(self, P, S):
         super(Kotla, self).__init__()
         self._BelongsTo = P
         self._Symbol = S
 
     def GetPointsForOccupancy(self, CurrentPlayer):
+        ## runs functions to get the points for differet position on the board
         if self._PieceInSquare is None:
             return 0
         elif self._BelongsTo.SameAs(CurrentPlayer):
@@ -414,6 +426,7 @@ class Kotla(Square):
                 return 0
 
 class MoveOption:
+    ## gets the player to select a move option and confirms it
     def __init__(self, N):
         self._Name = N
         self._PossibleMoves = []
