@@ -4,6 +4,16 @@
 #written by the AQA Programmer Team
 #developed in the Python 3.9 programming environment
 
+## possible questions
+## 1.make the game not crash when incorrent inputs are given
+## 2.display what each move does in the console
+## 3.
+## 4.
+## 5.
+##
+##
+##
+
 import random
 
 class Dastan:
@@ -438,6 +448,7 @@ class MoveOption:
         return self._Name
 
     def CheckIfThereIsAMoveToSquare(self, StartSquareReference, FinishSquareReference):
+        ## checks if a peice can get to square with any move avalible
         StartRow = StartSquareReference // 10
         StartColumn = StartSquareReference % 10
         FinishRow = FinishSquareReference // 10
@@ -448,6 +459,7 @@ class MoveOption:
         return False
 
 class Move:
+    ## class to move the peice to the specified row
     def __init__(self, R, C):
         self._RowChange = R
         self._ColumnChange = C
@@ -459,10 +471,12 @@ class Move:
         return self._ColumnChange
 
 class MoveOptionQueue:
+    ## class to move the que along when a move has been chosen
     def __init__(self):
         self.__Queue = []
 
     def GetQueueAsString(self):
+        ## gets the que as a string for eiser handling
         QueueAsString = ""
         Count = 1
         for M in self.__Queue:
@@ -485,6 +499,7 @@ class MoveOptionQueue:
         return self.__Queue[Pos]
 
 class Player:
+    ## method to create each player
     def __init__(self, N, D):
         self.__Score = 100
         self.__Name = N
@@ -492,6 +507,7 @@ class Player:
         self.__Queue = MoveOptionQueue()
 
     def SameAs(self, APlayer):
+        ## creates a player name 
         if APlayer is None:
             return False
         elif APlayer.GetName() == self.__Name:
@@ -512,26 +528,33 @@ class Player:
         self.__Queue.Replace(Position, NewMoveOption)
 
     def GetScore(self):
+        ## return current player score
         return self.__Score
 
     def GetName(self):
+        ## return current player name
         return self.__Name
 
     def GetDirection(self):
+        ## return current player orientation
         return self.__Direction
 
     def ChangeScore(self, Amount):
+        ## return the amount the score has ben changed of the current player
         self.__Score += Amount
 
     def CheckPlayerMove(self, Pos, StartSquareReference, FinishSquareReference):
+        ## checks if the move and destitation matvh up
         Temp = self.__Queue.GetMoveOptionInPosition(Pos - 1)
         return Temp.CheckIfThereIsAMoveToSquare(StartSquareReference, FinishSquareReference)
 
 def Main():
+    ## the code that starts it all calls play game
     ThisGame = Dastan(6, 6, 4)
     ThisGame.PlayGame()
     print("Goodbye!")
     input()
 
 if __name__ == "__main__":
+    ## starts game
     Main()
