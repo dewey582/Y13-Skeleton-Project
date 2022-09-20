@@ -5,14 +5,13 @@
 #developed in the Python 3.9 programming environment
 
 ## possible questions
-## 1.make the game not crash when incorrent inputs are given
-## 2.display what each move does in the console
-## 3.
-## 4.
-## 5.
+## 1.make the game not crash when incorrent inputs are given for cords
+## 2.display what each move does in the console when a move is chosen
+## 3.add ability to expand the board
+## 4.add another move
+## 5.show what moves are possibel on the board
 ##
-##
-##
+
 
 import random
 
